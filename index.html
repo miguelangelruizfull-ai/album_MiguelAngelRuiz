@@ -367,33 +367,6 @@ Videos 🎥
 
 </div>
 
-
-
-
-
-<footer>
-
-
-<p>
-
-"Todo lo que te viniere a la mano para hacer,
-hazlo según tus fuerzas."
-— Eclesiastés 9:10
-
-</p>
-
-
-<p>
-
-Álbum Miguel Ángel 2026
-
-</p>
-
-
-</footer>
-
-
-
 <script>async function fetchFolders(path) {
   const url = `https://api.github.com/repos/KATO250712/AlbumFamiliar/contents/${path}`;
   const res = await fetch(url);
@@ -491,7 +464,7 @@ async function loadVideos() {
 
 // IMÁGENES
 async function loadImages() {
-    const apiURL = "https://api.github.com/repos/KATO250712/AlbumFamiliar/contents/imagenes";
+    const apiURL = "https://api.github.com/repos/KATO250712/AlbumFamiliar/contents/2026/FOTOS";
     const res = await fetch(apiURL);
     if (!res.ok) return;
     const files = await res.json();
@@ -549,7 +522,32 @@ function closeLightbox() {
 }
 
 </script>
- <div id="albumViewer"></div>
+
+
+
+
+<footer>
+
+
+<p>
+
+"Todo lo que te viniere a la mano para hacer,
+hazlo según tus fuerzas."
+— Eclesiastés 9:10
+
+</p>
+
+
+<p>
+
+Álbum Miguel Ángel 2026
+
+</p>
+
+
+</footer>
+
+
 
 
 <footer>
