@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Álbum Familiar 2026
-</title>
+<title>Álbum Familiar</title>
 
 <style>
     body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
@@ -190,70 +189,210 @@
 <body>
 
 <header>
-    <h2> 📸 Álbum Familiar — Miguel</h2>
-    <div class="video-container">
-       <video class="video-header" autoplay muted loop playsinline>
-       <source src="VideosDestacados/petal_20251205_034757.mp4">  </video>
-        
-    </div>
-    <!--VideosDestacados/petal_20251205_024817.mp4
-    https://www.canva.com/design/DAG6oTyffGo/XEQuC5Xm5Ad1LEHf3XFFew/edit?utm_content=DAG6oTyffGo&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" type="video/mp4"
-    https://www.canva.com/design/DAG6oTyffGo/XEQuC5Xm5Ad1LEHf3XFFew/edit?utm_content=DAG6oTyffGo&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
- -->
 
-</header>
-        </div>
-    </div>
+<h2>📸 Álbum Familiar — Miguel Ángel 2026</h2>
 
-</header>
+<div class="video-container">
 
-    
-<div class="intro">
-        
+<video class="video-header" autoplay muted loop playsinline>
+
+<source src="2026/VIDEOS/portada.mp4" type="video/mp4">
+
+</video>
 
 </div>
-    
-<div class="intro">    
-    <h1>❤️ Dedicado a</h1>
+
+</header>
+
+
+
+<div class="intro">
+
+<h1>❤️ Dedicado a</h1>
+
 <p>
-    Miguel Angel Ruiz Tlalpan</p>
+Miguel Ángel Ruiz Tlalpan
 </p>
-    
-    <p> Este repositorio existe para guardar recuerdos que no deben perderse: momentos con mi hijo Miguel Angel, con mi familia y conmigo mismo. También forma parte de reflexión, crecimiento y recuperación Aquí dejo imágenes, videos y documentos que marcaron etapas importantes de mi vida.. <a href="https://kato250712.github.io/AlbumFamiliar">ALBUM FAMILIAR 2025</a></p></div>
 
 
-        <div class="video-container">
-       <h2>Cuando le cantaste al cielo para que regresara migue </h2>
-            <video class="video-header" autoplay muted loop playsinline>
-       <source src="videos/VID-20250613-WA0000.mp4">  </video>
-        
-    </div>
+<p>
+Este repositorio existe para guardar recuerdos que no deben perderse:
+momentos con mi hijo Miguel Ángel, mi familia y etapas importantes de mi vida.
+Aquí dejo imágenes, videos y documentos que forman parte de nuestra historia.
+</p>
 
-<div class="album-menu-btn" onclick="toggleAlbumMenu()">📂 Álbumes</div>
+
+<p>
+
+<a href="https://kato250712.github.io/AlbumFamiliar"
+target="_blank">
+
+📂 Álbum Familiar 2025
+
+</a>
+
+</p>
+
+
+</div>
+
+
+
+
+<!-- VIDEO DESTACADO -->
+
+<div class="video-container">
+
+<h2>
+Recuerdos especiales
+</h2>
+
+
+<video class="video-header" autoplay muted loop playsinline>
+
+<source src="2026/VIDEOS/video_destacado.mp4"
+type="video/mp4">
+
+</video>
+
+
+</div>
+
+
+
+
+
+<!-- BOTON MENU -->
+
+<div class="album-menu-btn" onclick="toggleAlbumMenu()">
+
+📂 Álbumes
+
+</div>
+
+
+
+
+
+<!-- MENU DESPLEGABLE -->
 
 <div class="album-menu-panel" id="albumMenu">
-  <div class="album-menu-title">Carpetas</div>
-  <div id="albumList"></div>
+
+
+<div class="album-menu-title">
+
+Carpetas 2026
+
 </div>
 
-    <!-- FOTOS -->
-    <div class="gallery" id="gallery"></div>
+
+<div id="albumList">
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<!-- GALERIA FOTOS -->
+
+<div class="gallery" id="gallery">
+
+</div>
+
+
+
+
+
+
+
+<!-- VISOR ALBUM -->
+
+<div id="albumViewer">
+
+</div>
+
+
+
+
+
+
+<!-- VIDEOS -->
+
+<div class="videos-section">
+
+
+<h2>
+
+Videos 🎥
+
+</h2>
+
+
+<div class="video-grid" id="video-grid">
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
 
 <!-- LIGHTBOX -->
+
 <div class="lightbox" id="lightbox">
-    <span onclick="closeLightbox()">&times;</span>
-    <div class="lightbox-content" id="lightbox-content"></div>
+
+
+<span onclick="closeLightbox()">
+
+&times;
+
+</span>
+
+
+<div class="lightbox-content" id="lightbox-content">
+
+
 </div>
-<!-- todos los videos-->
-<div class="lightbox" id="lightbox">
-    <span onclick="closeLightbox()">&times;</span>
-    <div class="lightbox-content2" id="lightbox-content2"></div>
+
+
 </div>
- <!-- VIDEOS -->
-<div class="videos-section">
-<h2>Videos 🎥</h2>
-<div class="video-grid" id="video-grid"></div>
-</div>
+
+
+
+
+
+<footer>
+
+
+<p>
+
+"Todo lo que te viniere a la mano para hacer,
+hazlo según tus fuerzas."
+— Eclesiastés 9:10
+
+</p>
+
+
+<p>
+
+Álbum Miguel Ángel 2026
+
+</p>
+
+
+</footer>
+
+
 
 <script>async function fetchFolders(path) {
   const url = `https://api.github.com/repos/KATO250712/AlbumFamiliar/contents/${path}`;
@@ -411,13 +550,15 @@ function closeLightbox() {
 
 </script>
  <div id="albumViewer"></div>
+
+
 <footer>
 
      <p> "Todo lo que te viniere a la mano para hacer, hazlo según tus fuerzas." — Eclesiastés 9:10</p>
-    <p>Conservar recuerdos familiares de la manera más segura y accesible.</p>p>
-    <p>By Miguel Miguel Angel Ruiz Ramirez</p>
+    <p>Conservar recuerdos familiares de la manera más segura y accesible.</p>
+    <a href=""></a>ver album año 2025</div>
+
+    <p>By Miguel Miguel Angel Ruiz Ramirez - 2026</p>
 
 </footer>
-
-</body>
 </html>
