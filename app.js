@@ -1,19 +1,3 @@
-# APP_JS_ALBUM_MIGUEL_2026
-
-Archivo:
-`app.js`
-
-Repositorio:
-`miguelangelruizfull-ai/album_MiguelAngelRuiz`
-
-Estructura:
-
-```
-2026/
-├── FOTOS/
-└── VIDEOS/
-```
-
 ```javascript
 // =====================================================
 // APP.JS
