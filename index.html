@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Álbum Familiar</title>
+<title>Álbum Familiar 2026
+</title>
 
 <style>
     body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
@@ -189,222 +190,234 @@
 <body>
 
 <header>
+    <h2> 📸 Álbum Familiar — Miguel</h2>
+    <div class="video-container">
+       <video class="video-header" autoplay muted loop playsinline>
+       <source src="VideosDestacados/petal_20251205_034757.mp4">  </video>
+        
+    </div>
+    <!--VideosDestacados/petal_20251205_024817.mp4
+    https://www.canva.com/design/DAG6oTyffGo/XEQuC5Xm5Ad1LEHf3XFFew/edit?utm_content=DAG6oTyffGo&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" type="video/mp4"
+    https://www.canva.com/design/DAG6oTyffGo/XEQuC5Xm5Ad1LEHf3XFFew/edit?utm_content=DAG6oTyffGo&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+ -->
 
-<h2>📸 Álbum Familiar — Miguel Ángel 2026</h2>
-
-<div class="video-container">
-
-<video class="video-header" autoplay muted loop playsinline>
-
-<source src="2026/VIDEOS/portada.mp4" type="video/mp4">
-
-</video>
-
-</div>
+</header>
+        </div>
+    </div>
 
 </header>
 
-
-
+    
 <div class="intro">
-
-<h1>❤️ Dedicado a</h1>
-
-<p>
-Miguel Ángel Ruiz Tlalpan
-</p>
-
-
-<p>
-Este repositorio existe para guardar recuerdos que no deben perderse:
-momentos con mi hijo Miguel Ángel, mi familia y etapas importantes de mi vida.
-Aquí dejo imágenes, videos y documentos que forman parte de nuestra historia.
-</p>
-
-
-<p>
-
-<a href="https://kato250712.github.io/AlbumFamiliar"
-target="_blank">
-
-📂 Álbum Familiar 2025
-
-</a>
-
-</p>
-
+        
 
 </div>
+    
+<div class="intro">    
+    <h1>❤️ Dedicado a</h1>
+<p>
+    Miguel Angel Ruiz Tlalpan</p>
+</p>
+    
+    <p> Este repositorio existe para guardar recuerdos que no deben perderse: momentos con mi hijo Miguel Angel, con mi familia y conmigo mismo. También forma parte de reflexión, crecimiento y recuperación Aquí dejo imágenes, videos y documentos que marcaron etapas importantes de mi vida.. <a href="https://kato250712.github.io/AlbumFamiliar">ALBUM FAMILIAR 2025</a></p></div>
 
 
+        <div class="video-container">
+       <h2>Cuando le cantaste al cielo para que regresara migue </h2>
+            <video class="video-header" autoplay muted loop playsinline>
+       <source src="videos/VID-20250613-WA0000.mp4">  </video>
+        
+    </div>
 
-
-<!-- VIDEO DESTACADO -->
-
-<div class="video-container">
-
-<h2>
-Recuerdos especiales
-</h2>
-
-
-<video class="video-header" autoplay muted loop playsinline>
-
-<source src="2026/VIDEOS/video_destacado.mp4"
-type="video/mp4">
-
-</video>
-
-
-</div>
-
-
-
-
-
-<!-- BOTON MENU -->
-
-<div class="album-menu-btn" onclick="toggleAlbumMenu()">
-
-📂 Álbumes
-
-</div>
-
-
-
-
-
-<!-- MENU DESPLEGABLE -->
+<div class="album-menu-btn" onclick="toggleAlbumMenu()">📂 Álbumes</div>
 
 <div class="album-menu-panel" id="albumMenu">
-
-
-<div class="album-menu-title">
-
-Carpetas 2026
-
+  <div class="album-menu-title">Carpetas</div>
+  <div id="albumList"></div>
 </div>
 
-
-<div id="albumList">
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-<!-- GALERIA FOTOS -->
-
-<div class="gallery" id="gallery">
-
-</div>
-
-
-
-
-
-
-
-<!-- VISOR ALBUM -->
-
-<div id="albumViewer">
-
-</div>
-
-
-
-
-
-
-<!-- VIDEOS -->
-
-<div class="videos-section">
-
-
-<h2>
-
-Videos 🎥
-
-</h2>
-
-
-<div class="video-grid" id="video-grid">
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
+    <!-- FOTOS -->
+    <div class="gallery" id="gallery"></div>
 
 <!-- LIGHTBOX -->
-
 <div class="lightbox" id="lightbox">
-
-
-<span onclick="closeLightbox()">
-
-&times;
-
-</span>
-
-
-<div class="lightbox-content" id="lightbox-content">
-
-
+    <span onclick="closeLightbox()">&times;</span>
+    <div class="lightbox-content" id="lightbox-content"></div>
+</div>
+<!-- todos los videos-->
+<div class="lightbox" id="lightbox">
+    <span onclick="closeLightbox()">&times;</span>
+    <div class="lightbox-content2" id="lightbox-content2"></div>
+</div>
+ <!-- VIDEOS -->
+<div class="videos-section">
+<h2>Videos 🎥</h2>
+<div class="video-grid" id="video-grid"></div>
 </div>
 
+<script>async function fetchFolders(path) {
+  const url = `https://api.github.com/repos/KATO250712/AlbumFamiliar/contents/${path}`;
+  const res = await fetch(url);
+  if (!res.ok) return [];
+  const data = await res.json();
+  return data.filter(item => item.type === "dir");
+}
 
-</div>
+async function loadAlbumMenu() {
+  const albumList = document.getElementById("albumList");
+  albumList.innerHTML = "<p>Cargando...</p>";
+
+  const fotoFolders = await fetchFolders("2026/FOTOS");
+  const videoFolders = await fetchFolders("VideosDestacados");
+
+  let html = `<strong>📷 Fotos</strong>`;
+  fotoFolders.forEach(f => {
+    html += `<div class="album-link" onclick="openAlbum('${f.path}')">${f.name}</div>`;
+  });
+
+  html += `<strong>🎥 Videos</strong>`;
+  videoFolders.forEach(v => {
+    html += `<div class="album-link" onclick="openAlbum('${v.path}')">${v.name}</div>`;
+  });
+
+  albumList.innerHTML = html;
+}
+
+async function openAlbum(path) {
+  const viewer = document.getElementById("albumViewer");
+  const contentBox = `
+    <h2>📁 ${path}</h2>
+    <div id="albumContent"></div>
+  `;
+  viewer.innerHTML = contentBox;
+
+  const res = await fetch(`https://api.github.com/repos/KATO250712/AlbumFamiliar/contents/${path}`);
+  if (!res.ok) return;
+
+  const files = await res.json();
+  const content = document.getElementById("albumContent");
+
+  let html = "";
+
+  files.forEach(f => {
+    if (/\.(jpg|jpeg|png|gif|webp)$/i.test(f.name)) {
+      html += `<img src="${f.download_url}" onclick="openLightbox('img','${f.download_url}')">`;
+    }
+    if (/\.(mp4|webm|mov)$/i.test(f.name)) {
+      html += `<video src="${f.download_url}" muted loop onclick="openLightbox('video','${f.download_url}')"></videos>`;
+    }
+  });
+
+  content.innerHTML = html;
+
+  // Cierra el menú al elegir una carpeta
+  document.getElementById("albumMenu").style.display = "none";
+}
+
+function toggleAlbumMenu() {
+  const menu = document.getElementById("albumMenu");
+  menu.style.display = menu.style.display === "block" ? "none" : "block";
+}
+
+// Inicializar menús al cargar
+loadAlbumMenu();
+
+    </script>
 
 
 
+<script>
 
+    
+    // VIDEOS
+async function loadVideos() {
+    const apiURL = "https://api.github.com/repos/KATO250712/AlbumFamiliar/contents/VideosDestacados";
+    const res = await fetch(apiURL);
+    if (!res.ok) return;
+    const files = await res.json();
 
-<footer>
+    const videoGrid = document.getElementById("video-grid");
+    files.forEach(file => {
+        if (file.name.match(/\.(mp4|webm|mov)$/i)) {
+            const video = document.createElement("video");
+            video.src = file.download_url;
+            video.autoplay = true;
+            video.muted = true;
+            video.loop = true;
+            video.onclick = () => openLightbox("video", file.download_url);
+            videoGrid.appendChild(video);
+        }
+    });
+}
 
+// IMÁGENES
+async function loadImages() {
+    const apiURL = "https://api.github.com/repos/KATO250712/AlbumFamiliar/contents/imagenes";
+    const res = await fetch(apiURL);
+    if (!res.ok) return;
+    const files = await res.json();
 
-<p>
+    const gallery = document.getElementById("gallery");
 
-"Todo lo que te viniere a la mano para hacer,
-hazlo según tus fuerzas."
-— Eclesiastés 9:10
+    // Ordenarlas por fecha dentro del nombre del archivo
+    files.sort((a, b) => {
+        const da = a.name.match(/\d+/g);
+        const db = b.name.match(/\d+/g);
+        return (da ? da.join("") : 0) - (db ? db.join("") : 0);
+    });
 
-</p>
+    files.forEach(file => {
+        if (file.name.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
+            const item = document.createElement("div");
+            item.classList.add("gallery-item");
+            item.innerHTML = `<img src="${file.download_url}">`;
+            item.onclick = () => openLightbox("img", file.download_url);
+            gallery.appendChild(item);
+        }
+    });
+}
 
+// LIGHTBOX
+function openLightbox(type, src) {
+    const content = document.getElementById("lightbox-content");
+    content.innerHTML = type === "img"
+        ? `<img src="${src}">`
+        : `<video src="${src}" controls autoplay></video>`;
+    document.getElementById("lightbox").style.display = "flex";
+}
 
-<p>
+function closeLightbox() {
+    document.getElementById("lightbox").style.display = "none";
+    document.getElementById("lightbox-content").innerHTML = "";
+}
 
-Álbum Miguel Ángel 2026
+loadVideos();
+loadImages();
 
-</p>
+    
+// LIGHTBOX
+function openLightbox(type, src) {
+    const content = document.getElementById("lightbox-content");
+    content.innerHTML = type === "img"
+        ? `<img src="${src}">`
+        : `<video src="${src}" controls autoplay></video>`;
+    document.getElementById("lightbox").style.display = "flex";
+}
 
+function closeLightbox() {
+    document.getElementById("lightbox").style.display = "none";
+    document.getElementById("lightbox-content").innerHTML = "";
+}
 
-</footer>
-
-
-
-<script src="app.js"></script>
-
-
-
+</script>
+ <div id="albumViewer"></div>
 <footer>
 
      <p> "Todo lo que te viniere a la mano para hacer, hazlo según tus fuerzas." — Eclesiastés 9:10</p>
-    <p>Conservar recuerdos familiares de la manera más segura y accesible.</p>
-    <a href=""></a>ver album año 2025</div>
-
-    <p>By Miguel Miguel Angel Ruiz Ramirez - 2026</p>
+    <p>Conservar recuerdos familiares de la manera más segura y accesible.</p>p>
+    <p>By Miguel Miguel Angel Ruiz Ramirez</p>
 
 </footer>
+
+</body>
 </html>
