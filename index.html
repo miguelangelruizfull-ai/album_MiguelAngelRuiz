@@ -224,7 +224,7 @@ Aquí dejo imágenes, videos y documentos que forman parte de nuestra historia.
 
 <p>
 
-<a href="https://kato250712.github.io/AlbumFamiliar"
+<a href="https://miguelangelruizfull-ai/AlbumFamiliar"
 target="_blank">
 
 📂 Álbum Familiar 2025
@@ -368,7 +368,7 @@ Videos 🎥
 </div>
 
 <script>async function fetchFolders(path) {
-  const url = `https://api.github.com/repos/KATO250712/AlbumFamiliar/contents/${path}`;
+  const url = `https://api.github.com/repos/miguelangelruizfull-ai/album_MiguelAngelRuiz/contents/${path}`;
   const res = await fetch(url);
   if (!res.ok) return [];
   const data = await res.json();
@@ -403,7 +403,7 @@ async function openAlbum(path) {
   `;
   viewer.innerHTML = contentBox;
 
-  const res = await fetch(`https://api.github.com/repos/KATO250712/AlbumFamiliar/contents/${path}`);
+  const res = await fetch(`https://api.github.com/repos/miguelangelruizfull-ai/album_MiguelAngelRuiz/contents/${path}`);
   if (!res.ok) return;
 
   const files = await res.json();
@@ -443,7 +443,7 @@ loadAlbumMenu();
     
     // VIDEOS
 async function loadVideos() {
-    const apiURL = "https://api.github.com/repos/KATO250712/AlbumFamiliar/contents/VideosDestacados";
+    const apiURL = "https://api.github.com/repos/miguelangelruizfull-ai/album_MiguelAngelRuiz/contents/VideosDestacados";
     const res = await fetch(apiURL);
     if (!res.ok) return;
     const files = await res.json();
@@ -464,7 +464,7 @@ async function loadVideos() {
 
 // IMÁGENES
 async function loadImages() {
-    const apiURL = "https://api.github.com/repos/KATO250712/AlbumFamiliar/contents/2026/FOTOS";
+    const apiURL = "https://api.github.com/repos/miguelangelruizfull-ai/album_MiguelAngelRuiz/contents/2026/FOTOS";
     const res = await fetch(apiURL);
     if (!res.ok) return;
     const files = await res.json();
