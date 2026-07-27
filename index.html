@@ -1,422 +1,663 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Álbum Familiar</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Álbum Miguel Ángel 2026</title>
+
 
 <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
-    header { background: #222; color: #fff; text-align: center; padding: 25px 15px; }
-    header h1 { margin: 0; font-size: 2rem; }
-    header p { margin: 8px 0 0; font-size: 1rem; opacity: 0.9; }
 
-    .intro {
-        max-width: 800px; margin: 20px auto; padding: 0 20px;
-        color: #444; text-align: center; line-height: 1.6;
-    }
-
-    /* VIDEOS */
-    .videos-section { padding: 15px; margin-top: 10px;}
-.video-container video{
-    width: 100%;       /* El video ocupa el 100% del ancho de su contenedor */
-    max-width: 800px;  /* Pero nunca superará los 800px de ancho */
-    /* La altura se ajusta automáticamente para mantener la relación de aspecto */
-    display: block;    /* Centra el video si el contenedor es más grande que 800px */
-    margin: 0 auto;    /* Centra el video si el contenedor es más grande que 800px */
-    
-         height: auto; border-radius: 10px;
-        object-fit: cover; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        cursor: pointer; transition: transform 0.3s;
-}
-    margin: 0 auto; }
-    .videos-section h2 { margin: 0 0 10px 5px; font-size: 1.3rem; color: #333; }
-    .video-grid {
-        display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap: 12px;
-    }
-    .video-grid video {
-        width: 100%; height: 160px; border-radius: 10px;
-        object-fit: cover; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        cursor: pointer; transition: transform 0.3s;
-    }
-    .video-grid video:hover { transform: scale(1.04); }
-
-    /* IMÁGENES */
-    .gallery {
-        display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-        gap: 10px; padding: 15px; margin-top: 20px;
-    }
-    .gallery-item img {
-        width: 100%; height: 180px; object-fit: cover;
-        border-radius: 8px; transition: 0.3s;
-    }
-    .gallery-item:hover img {
-        transform: scale(1.05);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
-
-    /* LIGHTBOX */
-    .lightbox {
-        position: fixed; inset: 0;
-        background: rgba(0,0,0,0.85);
-        display: none; justify-content: center; align-items: center;
-        z-index: 999; padding: 20px;
-    }
-    .lightbox-content { max-width: 90%; max-height: 85%; }
-    .lightbox-content video, .lightbox-content img {
-        width: 100%; height: auto; border-radius: 10px;
-    }
-    .lightbox span {
-        position: absolute; top: 20px; right: 35px;
-        color: white; font-size: 40px; cursor: pointer;
-    }
-.perfil-contenedor {
-    max-width: 800px;
-    margin: 0 auto;
+*{
+    box-sizing:border-box;
 }
 
-.perfil-foto {
-    width: auto;
-    height: auto;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 4px solid #fff;
-    box-shadow: 0 0 12px rgba(0,0,0,0.4);
-    margin-bottom: 15px;
+
+body{
+
+    margin:0;
+    font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+    background:#f3f3f3;
+    color:#333;
+
 }
 
-.perfil-texto h1 {
-    margin: 10px 0 5px;
-    font-size: 1.8rem;
-    font-weight: 700;
+
+
+/* HEADER */
+
+header{
+
+    background:#222;
+    color:white;
+    text-align:center;
+    padding:30px 15px;
+
 }
 
-.perfil-texto p {
-    margin: 0;
-    font-size: 1rem;
-    opacity: 0.85;
+
+header h1{
+
+    margin:0;
+    font-size:2rem;
+
 }
-    footer { text-align: center; padding: 15px; color: #666; margin-top: 25px; }
 
 
-  .album-menu-btn {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    background: #222;
-    color: #fff;
-    padding: 14px 18px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 16px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    z-index: 9999;
-  }
+header p{
 
-  .album-menu-panel {
-    position: fixed;
-    bottom: 80px;
-    right: 25px;
-    background: white;
-    width: 260px;
-    max-height: 60vh;
-    overflow-y: auto;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-    display: none;
-    padding: 10px;
-    z-index: 9999;
-  }
+    opacity:.85;
 
-  .album-menu-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin: 10px 0;
-    text-align: center;
-  }
+}
 
-  .album-link {
-    display: block;
-    padding: 10px;
-    margin: 4px 0;
-    background: #f4f4f4;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 14px;
-  }
 
-  .album-link:hover {
-    background: #ddd;
-  }
 
-  /* Contenedor dinámico para carpetas */
-  #albumViewer {
-    margin: 30px auto;
-    max-width: 1300px;
-    padding: 10px;
-  }
+/* VIDEO PORTADA */
 
-  #albumViewer h2 {
-    text-align: center;
-    margin-bottom: 15px;
-  }
+.hero-video{
 
-  #albumContent {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 12px;
-  }
+    max-width:850px;
+    margin:25px auto;
 
-  #albumContent img, #albumContent video {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
+}
 
-  #albumContent img:hover,
-  #albumContent video:hover {
-    transform: scale(1.05);
-  }
+
+.hero-video video{
+
+    width:100%;
+    border-radius:15px;
+
+    box-shadow:
+    0 5px 15px rgba(0,0,0,.3);
+
+}
+
+
+
+/* CONTENEDOR */
+
+.container{
+
+    max-width:1200px;
+    margin:auto;
+    padding:20px;
+
+}
+
+
+
+/* TARJETAS */
+
+.card{
+
+    background:white;
+
+    padding:25px;
+
+    margin-bottom:25px;
+
+    border-radius:15px;
+
+    box-shadow:
+    0 4px 12px rgba(0,0,0,.12);
+
+}
+
+
+
+/* BOTONES MENU */
+
+
+.menu{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
+    gap:15px;
+
+}
+
+
+.menu a{
+
+    text-decoration:none;
+
+    background:#222;
+
+    color:white;
+
+    padding:18px;
+
+    text-align:center;
+
+    border-radius:12px;
+
+    transition:.3s;
+
+}
+
+
+.menu a:hover{
+
+    background:#444;
+
+    transform:translateY(-3px);
+
+}
+
+
+
+/* GALERIA */
+
+
+.gallery{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(230px,1fr));
+
+    gap:15px;
+
+}
+
+
+
+.item{
+
+    background:white;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 3px 10px rgba(0,0,0,.15);
+
+}
+
+
+
+.item img,
+.item video{
+
+    width:100%;
+
+    display:block;
+
+}
+
+
+
+.info{
+
+    padding:15px;
+
+}
+
+
+
+.fecha{
+
+    margin-top:8px;
+
+    color:#777;
+
+    font-size:.85rem;
+
+}
+
+
+
+/* FOOTER */
+
+
+footer{
+
+    text-align:center;
+
+    padding:25px;
+
+    color:#666;
+
+}
+
+
+
+
+/* RESPONSIVE */
+
+@media(max-width:600px){
+
+
+header h1{
+
+    font-size:1.5rem;
+
+}
+
+
+.container{
+
+    padding:10px;
+
+}
+
+
+.card{
+
+    padding:18px;
+
+}
+
+
+}
+
 
 </style>
+
+
 </head>
+
 
 <body>
 
+
+
 <header>
-    <h2> 📸 Álbum Familiar — Miguel</h2>
-    <div class="video-container">
-       <video class="video-header" autoplay muted loop playsinline>
-       <source src="VideosDestacados/petal_20251205_034757.mp4">  </video>
-        
-    </div>
-    <!--VideosDestacados/petal_20251205_024817.mp4
-    https://www.canva.com/design/DAG6oTyffGo/XEQuC5Xm5Ad1LEHf3XFFew/edit?utm_content=DAG6oTyffGo&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" type="video/mp4"
-    https://www.canva.com/design/DAG6oTyffGo/XEQuC5Xm5Ad1LEHf3XFFew/edit?utm_content=DAG6oTyffGo&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
- -->
 
-</header>
-        </div>
-    </div>
 
-</header>
+<h1>
+📸 Álbum Miguel Ángel
+</h1>
 
-    
-<div class="intro">
-        
 
-</div>
-    
-<div class="intro">    
-    <h1>❤️ Dedicado a</h1>
 <p>
-    Miguel Angel Ruiz Tlalpan</p>
+Recuerdos, momentos y etapas de vida
 </p>
-    
-    <p> Este repositorio existe para guardar recuerdos que no deben perderse: momentos con mi hijo, con Joss, con mi familia y conmigo mismo. También forma parte de reflexión, crecimiento y recuperación Aquí dejo imágenes, videos y documentos que marcaron etapas importantes de mi vida..</p></div>
 
 
-        <div class="video-container">
-       <h2>Cuando le cantaste al cielo para que regresara migue </h2>
-            <video class="video-header" autoplay muted loop playsinline>
-       <source src="videos/VID-20250613-WA0000.mp4">  </video>
-        
-    </div>
 
-<div class="album-menu-btn" onclick="toggleAlbumMenu()">📂 Álbumes</div>
+<div class="hero-video">
 
-<div class="album-menu-panel" id="albumMenu">
-  <div class="album-menu-title">Carpetas</div>
-  <div id="albumList"></div>
+
+<video autoplay muted loop playsinline>
+
+
+<source src="MULTIMEDIA/portada.mp4"
+type="video/mp4">
+
+
+</video>
+
+
 </div>
 
-    <!-- FOTOS -->
-    <div class="gallery" id="gallery"></div>
 
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox">
-    <span onclick="closeLightbox()">&times;</span>
-    <div class="lightbox-content" id="lightbox-content"></div>
+
+</header>
+
+
+
+
+
+<div class="container">
+
+
+
+<section class="card">
+
+
+<h2>
+❤️ Dedicado a Miguel Ángel Ruiz Tlalpan
+</h2>
+
+
+<p>
+
+Este álbum conserva fotografías, videos y documentos
+que forman parte de nuestra historia.
+
+Cada recuerdo representa una etapa importante.
+
+</p>
+
+
+
+<a href="https://miguelangelruizfull-ai.github.io/album_MiguelAngelRuiz"
+target="_blank">
+
+Entrar al nuevo álbum 2026
+
+</a>
+
+
+
+</section>
+
+
+
+
+
+
+<section class="card">
+
+
+<h2>
+📂 Secciones
+</h2>
+
+
+
+<div class="menu">
+
+
+<a href="README.md">
+📄 README
+</a>
+
+
+
+<a href="DOCUMENTACION/CRONOLOGIA.md">
+📅 Cronología
+</a>
+
+
+
+<a href="DOCUMENTACION/HISTORIA.md">
+📖 Historia
+</a>
+
+
+
+<a href="#galeria">
+📷 Galería
+</a>
+
+
+
 </div>
-<!-- todos los videos-->
-<div class="lightbox" id="lightbox">
-    <span onclick="closeLightbox()">&times;</span>
-    <div class="lightbox-content2" id="lightbox-content2"></div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<section class="card" id="galeria">
+
+
+<h2>
+📷 Últimos recuerdos
+</h2>
+
+
+
+<div class="gallery" id="gallery">
+
+
+<p>
+Cargando recuerdos...
+</p>
+
+
 </div>
- <!-- VIDEOS -->
-<div class="videos-section">
-<h2>Videos 🎥</h2>
-<div class="video-grid" id="video-grid"></div>
+
+
+</section>
+
+
+
+
+
 </div>
 
-<script>async function fetchFolders(path) {
-  const url = `https://api.github.com/repos/KATO250712/AlbumFamiliar/contents/${path}`;
-  const res = await fetch(url);
-  if (!res.ok) return [];
-  const data = await res.json();
-  return data.filter(item => item.type === "dir");
-}
 
-async function loadAlbumMenu() {
-  const albumList = document.getElementById("albumList");
-  albumList.innerHTML = "<p>Cargando...</p>";
 
-  const fotoFolders = await fetchFolders("imagenes");
-  const videoFolders = await fetchFolders("VideosDestacados");
 
-  let html = `<strong>📷 Fotos</strong>`;
-  fotoFolders.forEach(f => {
-    html += `<div class="album-link" onclick="openAlbum('${f.path}')">${f.name}</div>`;
-  });
 
-  html += `<strong>🎥 Videos</strong>`;
-  videoFolders.forEach(v => {
-    html += `<div class="album-link" onclick="openAlbum('${v.path}')">${v.name}</div>`;
-  });
 
-  albumList.innerHTML = html;
-}
+<footer>
 
-async function openAlbum(path) {
-  const viewer = document.getElementById("albumViewer");
-  const contentBox = `
-    <h2>📁 ${path}</h2>
-    <div id="albumContent"></div>
-  `;
-  viewer.innerHTML = contentBox;
 
-  const res = await fetch(`https://api.github.com/repos/KATO250712/AlbumFamiliar/contents/${path}`);
-  if (!res.ok) return;
+<p>
+"Todo lo que te viniere a la mano para hacer,
+hazlo según tus fuerzas."
+</p>
 
-  const files = await res.json();
-  const content = document.getElementById("albumContent");
 
-  let html = "";
+<p>
+Álbum Miguel Ángel — 2026
+</p>
 
-  files.forEach(f => {
-    if (/\.(jpg|jpeg|png|gif|webp)$/i.test(f.name)) {
-      html += `<img src="${f.download_url}" onclick="openLightbox('img','${f.download_url}')">`;
-    }
-    if (/\.(mp4|webm|mov)$/i.test(f.name)) {
-      html += `<video src="${f.download_url}" muted loop onclick="openLightbox('video','${f.download_url}')"></videos>`;
-    }
-  });
 
-  content.innerHTML = html;
+</footer>
 
-  // Cierra el menú al elegir una carpeta
-  document.getElementById("albumMenu").style.display = "none";
-}
 
-function toggleAlbumMenu() {
-  const menu = document.getElementById("albumMenu");
-  menu.style.display = menu.style.display === "block" ? "none" : "block";
-}
 
-// Inicializar menús al cargar
-loadAlbumMenu();
 
-    </script>
 
 
 
 <script>
 
-    
-    // VIDEOS
-async function loadVideos() {
-    const apiURL = "https://api.github.com/repos/KATO250712/AlbumFamiliar/contents/VideosDestacados";
-    const res = await fetch(apiURL);
-    if (!res.ok) return;
-    const files = await res.json();
 
-    const videoGrid = document.getElementById("video-grid");
-    files.forEach(file => {
-        if (file.name.match(/\.(mp4|webm|mov)$/i)) {
-            const video = document.createElement("video");
-            video.src = file.download_url;
-            video.autoplay = true;
-            video.muted = true;
-            video.loop = true;
-            video.onclick = () => openLightbox("video", file.download_url);
-            videoGrid.appendChild(video);
-        }
-    });
+/*
+
+GALERIA DINAMICA
+
+Archivo:
+
+data/galeria.json
+
+
+Ejemplo:
+
+{
+"multimedia":[
+
+{
+"fecha":"2026-07-27",
+"titulo":"Momento especial",
+"tipo":"imagen",
+"url":"LINK_DRIVE"
 }
 
-// IMÁGENES
-async function loadImages() {
-    const apiURL = "https://api.github.com/repos/KATO250712/AlbumFamiliar/contents/imagenes";
-    const res = await fetch(apiURL);
-    if (!res.ok) return;
-    const files = await res.json();
+]
 
-    const gallery = document.getElementById("gallery");
-
-    // Ordenarlas por fecha dentro del nombre del archivo
-    files.sort((a, b) => {
-        const da = a.name.match(/\d+/g);
-        const db = b.name.match(/\d+/g);
-        return (da ? da.join("") : 0) - (db ? db.join("") : 0);
-    });
-
-    files.forEach(file => {
-        if (file.name.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
-            const item = document.createElement("div");
-            item.classList.add("gallery-item");
-            item.innerHTML = `<img src="${file.download_url}">`;
-            item.onclick = () => openLightbox("img", file.download_url);
-            gallery.appendChild(item);
-        }
-    });
 }
 
-// LIGHTBOX
-function openLightbox(type, src) {
-    const content = document.getElementById("lightbox-content");
-    content.innerHTML = type === "img"
-        ? `<img src="${src}">`
-        : `<video src="${src}" controls autoplay></video>`;
-    document.getElementById("lightbox").style.display = "flex";
+*/
+
+
+const archivoGaleria =
+"data/galeria.json";
+
+
+
+
+
+async function cargarGaleria(){
+
+
+try{
+
+
+const respuesta =
+await fetch(archivoGaleria);
+
+
+
+const datos =
+await respuesta.json();
+
+
+
+
+const galeria =
+document.getElementById("gallery");
+
+
+
+galeria.innerHTML="";
+
+
+
+datos.multimedia
+
+
+.sort(
+(a,b)=>
+new Date(b.fecha)
+-
+new Date(a.fecha)
+
+)
+
+
+
+.forEach(item=>{
+
+
+
+let contenido="";
+
+
+
+
+if(item.tipo==="imagen"){
+
+
+contenido=
+
+`
+
+<img 
+src="${item.url}"
+loading="lazy">
+
+`;
+
+
+
 }
 
-function closeLightbox() {
-    document.getElementById("lightbox").style.display = "none";
-    document.getElementById("lightbox-content").innerHTML = "";
+
+
+
+if(item.tipo==="video"){
+
+
+contenido=
+
+`
+
+<video controls>
+
+<source src="${item.url}">
+
+</video>
+
+`;
+
+
+
 }
 
-loadVideos();
-loadImages();
 
-    
-// LIGHTBOX
-function openLightbox(type, src) {
-    const content = document.getElementById("lightbox-content");
-    content.innerHTML = type === "img"
-        ? `<img src="${src}">`
-        : `<video src="${src}" controls autoplay></video>`;
-    document.getElementById("lightbox").style.display = "flex";
+
+
+galeria.innerHTML +=
+
+
+`
+
+<div class="item">
+
+
+${contenido}
+
+
+<div class="info">
+
+
+<strong>
+
+${item.titulo}
+
+</strong>
+
+
+<div class="fecha">
+
+${item.fecha}
+
+</div>
+
+
+</div>
+
+
+</div>
+
+`;
+
+
+
+});
+
+
+
 }
 
-function closeLightbox() {
-    document.getElementById("lightbox").style.display = "none";
-    document.getElementById("lightbox-content").innerHTML = "";
+catch(error){
+
+
+document.getElementById("gallery").innerHTML=
+
+`
+
+<p>
+No se pudo cargar la galería.
+</p>
+
+`;
+
+
+console.error(error);
+
+
 }
+
+
+
+}
+
+
+
+
+
+cargarGaleria();
+
+
 
 </script>
- <div id="albumViewer"></div>
-<footer>
 
-     <p> "Todo lo que te viniere a la mano para hacer, hazlo según tus fuerzas." — Eclesiastés 9:10</p>
-    <p>Conservar recuerdos familiares de la manera más segura y accesible.</p>p>
-    <p>By Miguel Miguel Angel Ruiz Ramirez</p>
 
-</footer>
+
+
 
 </body>
 </html>
