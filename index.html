@@ -333,7 +333,7 @@ async function loadVideos() {
 
 // IMÁGENES
 async function loadImages() {
-    const apiURL = "https://api.github.com/repos/api.github.com/repos/miguelangelruizfull-ai/album_MiguelAngelRuiz/contents/imagenes";
+    const apiURL = "https://api.github.com/repos/miguelangelruizfull-ai/album_MiguelAngelRuiz/contents/imagenes";
     const res = await fetch(apiURL);
     if (!res.ok) return;
     const files = await res.json();
