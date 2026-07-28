@@ -1,50 +1,315 @@
-# index.html
-
-```html
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
 
 <title>Álbum Familiar</title>
 
 <style>
 
-body{
+*{
     margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#111;
-    color:white;
+    padding:0;
+    box-sizing:border-box;
 }
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    background:#111;
+
+    color:#fff;
+
+    font-family:Arial,Helvetica,sans-serif;
+
+}
+
+
+
+/******************************
+            HEADER
+******************************/
 
 header{
-    text-align:center;
-    padding:25px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+
     background:#000;
+
+    padding:18px;
+
+    box-shadow:0 2px 10px rgba(0,0,0,.4);
+
 }
 
-h1{
-    margin:0;
+header h1{
+
+    font-size:28px;
+
+    text-align:center;
+
+}
+
+header p{
+
+    text-align:center;
+
+    color:#bbb;
+
+    margin-top:5px;
+
+}
+
+
+
+/******************************
+            BUSCADOR
+******************************/
+
+#buscar{
+
+    width:100%;
+
+    max-width:700px;
+
+    display:block;
+
+    margin:18px auto;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:8px;
+
+    font-size:16px;
+
+}
+
+
+
+/******************************
+          INFORMACIÓN
+******************************/
+
+#info{
+
+    text-align:center;
+
+    color:#bbb;
+
+    padding-bottom:15px;
+
+}
+
+
+
+/******************************
+            GALERÍA
+******************************/
+
+#galeria{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fill,minmax(250px,1fr));
+
+    gap:15px;
+
+    padding:15px;
+
+}
+
+
+
+/******************************
+            TARJETAS
+******************************/
+
+.item{
+
+    background:#1b1b1b;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+    transition:.25s;
+
+    cursor:pointer;
+
+}
+
+.item:hover{
+
+    transform:scale(1.02);
+
+}
+
+.item img{
+
+    width:100%;
+
+    display:block;
+
+}
+
+.item video{
+
+    width:100%;
+
+    display:block;
+
+}
+
+.nombre{
+
+    padding:12px;
+
+    font-size:13px;
+
+    color:#ccc;
+
+    text-align:center;
+
+    word-break:break-word;
+
+}
+
+
+
+/******************************
+            MODAL
+******************************/
+
+#modal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.95);
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    z-index:999;
+
+}
+
+#modal img{
+
+    max-width:96%;
+
+    max-height:94%;
+
+    border-radius:10px;
+
+}
+
+#modal video{
+
+    max-width:96%;
+
+    max-height:94%;
+
+}
+
+#cerrar{
+
+    position:absolute;
+
+    top:15px;
+
+    right:25px;
+
+    color:white;
+
+    font-size:42px;
+
+    cursor:pointer;
+
+}
+
+
+
+/******************************
+            LOADER
+******************************/
+
+#loader{
+
+    text-align:center;
+
+    padding:40px;
+
+    color:#999;
+
+    font-size:20px;
+
+}
+
+
+
+/******************************
+            FOOTER
+******************************/
+
+footer{
+
+    text-align:center;
+
+    padding:35px;
+
+    color:#777;
+
+    font-size:13px;
+
+}
+
+
+
+/******************************
+            MÓVIL
+******************************/
+
+@media(max-width:700px){
+
+header h1{
+
+    font-size:22px;
+
 }
 
 #galeria{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-    gap:12px;
-    padding:15px;
+
+grid-template-columns:
+repeat(auto-fill,minmax(170px,1fr));
+
+gap:10px;
+
+padding:10px;
+
 }
 
-#galeria img{
-    width:100%;
-    border-radius:10px;
-    cursor:pointer;
-    transition:.3s;
-}
-
-#galeria img:hover{
-    transform:scale(1.03);
 }
 
 </style>
@@ -55,46 +320,554 @@ h1{
 
 <header>
 
-<h1>Álbum Familiar</h1>
+<h1>📷 Álbum Familiar</h1>
 
-<p>Fotografías 2026</p>
+<p>Fotografías y Videos</p>
+
+<input
+id="buscar"
+type="text"
+placeholder="Buscar fotografía o video...">
+
+<div id="info">
+
+Cargando contenido...
+
+</div>
 
 </header>
 
+
+
+<div id="loader">
+
+Consultando repositorio de GitHub...
+
+</div>
+
+
+
 <div id="galeria"></div>
+
+
+
+<div id="modal">
+
+<span id="cerrar">&times;</span>
+
+<img id="imgGrande">
+
+<video
+id="videoGrande"
+controls></video>
+
+</div>
+
+
+
+<footer>
+
+Álbum Familiar • GitHub Pages
+
+</footer>
 
 <script>
 
-const fotos=[
+/***************************************************
 
-"001.jpg",
-"002.jpg",
-"003.jpg",
-"004.jpg",
-"005.jpg"
+CONFIGURACIÓN
 
-];
+***************************************************/
 
-const galeria=document.getElementById("galeria");
+const OWNER="miguelangelruizfull-ai";
 
-fotos
-.sort((a,b)=>a.localeCompare(b,undefined,{numeric:true}))
-.forEach(nombre=>{
+const REPO="album_MiguelAngelRuiz";
 
-    const img=document.createElement("img");
+const CARPETA="2026/FOTOS";
 
-    img.src="2026/FOTOS/"+nombre;
+const API=
+`https://api.github.com/repos/${OWNER}/${REPO}/contents/${CARPETA}`;
 
-    img.alt=nombre;
 
-    img.loading="lazy";
+/***************************************************
 
-    galeria.appendChild(img);
+LA PARTE 2 CONTINÚA DESDE AQUÍ
+
+***************************************************/
+
+<script>
+
+/***************************************************
+
+VARIABLES
+
+***************************************************/
+
+let archivos=[];
+
+
+/***************************************************
+
+OBTENER ARCHIVOS DESDE GITHUB
+
+***************************************************/
+
+async function cargarGaleria(){
+
+try{
+
+
+const respuesta=await fetch(API);
+
+
+const datos=await respuesta.json();
+
+
+
+archivos=datos.filter(archivo=>{
+
+
+const nombre=archivo.name.toLowerCase();
+
+
+return (
+
+nombre.endsWith(".jpg") ||
+nombre.endsWith(".jpeg") ||
+nombre.endsWith(".png") ||
+nombre.endsWith(".webp") ||
+nombre.endsWith(".gif") ||
+nombre.endsWith(".mp4") ||
+nombre.endsWith(".mov") ||
+nombre.endsWith(".webm")
+
+);
+
 
 });
 
+
+
+/*
+
+Orden cronológico usando el nombre
+
+Ejemplo:
+
+IMG_20260620_100220.jpg
+
+IMG_20260621_083000.jpg
+
+*/
+
+archivos.sort((a,b)=>
+
+a.name.localeCompare(
+b.name,
+undefined,
+{
+numeric:true,
+sensitivity:"base"
+}
+
+)
+
+);
+
+
+
+document.getElementById("loader").style.display="none";
+
+
+document.getElementById("info").innerHTML=
+
+`${archivos.length} archivos encontrados`;
+
+
+
+mostrarArchivos(archivos);
+
+
+
+}
+catch(error){
+
+
+document.getElementById("loader").innerHTML=
+
+"Error al consultar GitHub";
+
+
+console.error(error);
+
+
+}
+
+
+}
+
+
+
+/***************************************************
+
+MOSTRAR GALERÍA
+
+***************************************************/
+
+function mostrarArchivos(lista){
+
+
+
+const galeria=
+document.getElementById("galeria");
+
+
+galeria.innerHTML="";
+
+
+
+lista.forEach(archivo=>{
+
+
+const tarjeta=document.createElement("div");
+
+
+tarjeta.className="item";
+
+
+
+const nombre=
+archivo.name.toLowerCase();
+
+
+
+const titulo=document.createElement("div");
+
+
+titulo.className="nombre";
+
+
+titulo.textContent=archivo.name;
+
+
+
+/*
+
+IMÁGENES
+
+*/
+
+if(
+
+nombre.endsWith(".jpg") ||
+nombre.endsWith(".jpeg") ||
+nombre.endsWith(".png") ||
+nombre.endsWith(".webp") ||
+nombre.endsWith(".gif")
+
+){
+
+
+const img=document.createElement("img");
+
+
+img.src=archivo.download_url;
+
+
+img.loading="lazy";
+
+
+img.alt=archivo.name;
+
+
+img.onclick=()=>abrirImagen(
+archivo.download_url
+);
+
+
+
+tarjeta.appendChild(img);
+
+
+
+}
+
+
+
+/*
+
+VIDEOS
+
+*/
+
+else if(
+
+nombre.endsWith(".mp4") ||
+nombre.endsWith(".mov") ||
+nombre.endsWith(".webm")
+
+){
+
+
+
+const video=document.createElement("video");
+
+
+video.src=archivo.download_url;
+
+
+video.controls=true;
+
+
+video.preload="metadata";
+
+
+tarjeta.appendChild(video);
+
+
+
+}
+
+
+
+tarjeta.appendChild(titulo);
+
+
+
+galeria.appendChild(tarjeta);
+
+
+
+});
+
+
+
+}
+
+
+
+/***************************************************
+
+BUSCADOR
+
+***************************************************/
+
+document
+.getElementById("buscar")
+.addEventListener(
+"input",
+function(){
+
+
+const texto=
+this.value.toLowerCase();
+
+
+
+const filtrados=
+archivos.filter(
+archivo=>
+
+archivo.name
+.toLowerCase()
+.includes(texto)
+
+);
+
+
+
+mostrarArchivos(filtrados);
+
+
+
+}
+
+);
+
+
+
+
+/***************************************************
+
+INICIAR CARGA
+
+***************************************************/
+
+cargarGaleria();
+
+
+/***************************************************
+
+LA PARTE 3 CONTINÚA CON:
+
+- Visor pantalla completa
+- Cerrar modal
+- Control de videos
+- Ajustes finales
+
+***************************************************/
+
+
 </script>
 
+<script>
+
+/***************************************************
+
+VISOR DE IMÁGENES Y VIDEOS
+
+***************************************************/
+
+
+const modal =
+document.getElementById("modal");
+
+
+const imgGrande =
+document.getElementById("imgGrande");
+
+
+const videoGrande =
+document.getElementById("videoGrande");
+
+
+const cerrar =
+document.getElementById("cerrar");
+
+
+
+/*
+
+ABRIR IMAGEN
+
+*/
+
+function abrirImagen(url){
+
+
+videoGrande.style.display="none";
+
+
+videoGrande.pause();
+
+
+imgGrande.style.display="block";
+
+
+imgGrande.src=url;
+
+
+modal.style.display="flex";
+
+
+}
+
+
+
+/*
+
+ABRIR VIDEO
+
+*/
+
+function abrirVideo(url){
+
+
+imgGrande.style.display="none";
+
+
+videoGrande.style.display="block";
+
+
+videoGrande.src=url;
+
+
+modal.style.display="flex";
+
+
+}
+
+
+
+
+/*
+
+CERRAR VISOR
+
+*/
+
+cerrar.onclick=function(){
+
+
+modal.style.display="none";
+
+
+imgGrande.src="";
+
+
+videoGrande.pause();
+
+
+videoGrande.src="";
+
+
+};
+
+
+
+/*
+
+CERRAR AL HACER CLICK FUERA
+
+*/
+
+modal.onclick=function(e){
+
+
+if(e.target===modal){
+
+
+modal.style.display="none";
+
+
+videoGrande.pause();
+
+
+}
+
+};
+
+
+
+/***************************************************
+
+ACTUALIZAR VIDEOS PARA ABRIR EN GRANDE
+
+***************************************************/
+
+
+document
+.addEventListener(
+"click",
+function(e){
+
+
+if(e.target.tagName==="VIDEO"){
+
+
+abrirVideo(e.target.src);
+
+
+}
+
+
+});
+
+
+
+</script>
+
+
 </body>
+
 </html>
-```
