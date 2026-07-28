@@ -312,7 +312,7 @@ loadAlbumMenu();
     
     // VIDEOS
 async function loadVideos() {
-    const apiURL = "https://api.github.com/repos/KATO250712/AlbumFamiliar/contents/VideosDestacados";
+    const apiURL = "https://api.github.com/repos/miguelangelruizfull-ai/album_MiguelAngelRuiz/contents/VideosDestacados";
     const res = await fetch(apiURL);
     if (!res.ok) return;
     const files = await res.json();
