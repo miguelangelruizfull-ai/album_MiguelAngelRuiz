@@ -1,873 +1,404 @@
+
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width,initial-scale=1.0">
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Álbum Familiar</title>
 
 <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
+    header { background: #222; color: #fff; text-align: center; padding: 25px 15px; }
+    header h1 { margin: 0; font-size: 2rem; }
+    header p { margin: 8px 0 0; font-size: 1rem; opacity: 0.9; }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+    .intro {
+        max-width: 800px; margin: 20px auto; padding: 0 20px;
+        color: #444; text-align: center; line-height: 1.6;
+    }
+
+    /* VIDEOS */
+    .videos-section { padding: 15px; margin-top: 10px;}
+.video-container video{
+    width: 100%;       /* El video ocupa el 100% del ancho de su contenedor */
+    max-width: 800px;  /* Pero nunca superará los 800px de ancho */
+    /* La altura se ajusta automáticamente para mantener la relación de aspecto */
+    display: block;    /* Centra el video si el contenedor es más grande que 800px */
+    margin: 0 auto;    /* Centra el video si el contenedor es más grande que 800px */
+    
+         height: auto; border-radius: 10px;
+        object-fit: cover; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        cursor: pointer; transition: transform 0.3s;
+}
+    margin: 0 auto; }
+    .videos-section h2 { margin: 0 0 10px 5px; font-size: 1.3rem; color: #333; }
+    .video-grid {
+        display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 12px;
+    }
+    .video-grid video {
+        width: 100%; height: 160px; border-radius: 10px;
+        object-fit: cover; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        cursor: pointer; transition: transform 0.3s;
+    }
+    .video-grid video:hover { transform: scale(1.04); }
+
+    /* IMÁGENES */
+    .gallery {
+        display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 10px; padding: 15px; margin-top: 20px;
+    }
+    .gallery-item img {
+        width: 100%; height: 180px; object-fit: cover;
+        border-radius: 8px; transition: 0.3s;
+    }
+    .gallery-item:hover img {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    /* LIGHTBOX */
+    .lightbox {
+        position: fixed; inset: 0;
+        background: rgba(0,0,0,0.85);
+        display: none; justify-content: center; align-items: center;
+        z-index: 999; padding: 20px;
+    }
+    .lightbox-content { max-width: 90%; max-height: 85%; }
+    .lightbox-content video, .lightbox-content img {
+        width: 100%; height: auto; border-radius: 10px;
+    }
+    .lightbox span {
+        position: absolute; top: 20px; right: 35px;
+        color: white; font-size: 40px; cursor: pointer;
+    }
+.perfil-contenedor {
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-html{
-
-    scroll-behavior:smooth;
-
+.perfil-foto {
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    box-shadow: 0 0 12px rgba(0,0,0,0.4);
+    margin-bottom: 15px;
 }
 
-body{
-
-    background:#111;
-
-    color:#fff;
-
-    font-family:Arial,Helvetica,sans-serif;
-
+.perfil-texto h1 {
+    margin: 10px 0 5px;
+    font-size: 1.8rem;
+    font-weight: 700;
 }
 
-
-
-/******************************
-            HEADER
-******************************/
-
-header{
-
-    position:sticky;
-
-    top:0;
-
-    z-index:100;
-
-    background:#000;
-
-    padding:18px;
-
-    box-shadow:0 2px 10px rgba(0,0,0,.4);
-
+.perfil-texto p {
+    margin: 0;
+    font-size: 1rem;
+    opacity: 0.85;
 }
-
-header h1{
-
-    font-size:28px;
-
-    text-align:center;
-
-}
-
-header p{
-
-    text-align:center;
-
-    color:#bbb;
-
-    margin-top:5px;
-
-}
-
-
-
-/******************************
-            BUSCADOR
-******************************/
-
-#buscar{
-
-    width:100%;
-
-    max-width:700px;
-
-    display:block;
-
-    margin:18px auto;
-
-    padding:14px;
-
-    border:none;
-
-    border-radius:8px;
-
-    font-size:16px;
-
-}
-
-
-
-/******************************
-          INFORMACIÓN
-******************************/
-
-#info{
-
-    text-align:center;
-
-    color:#bbb;
-
-    padding-bottom:15px;
-
-}
-
-
-
-/******************************
-            GALERÍA
-******************************/
-
-#galeria{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(auto-fill,minmax(250px,1fr));
-
-    gap:15px;
-
-    padding:15px;
-
-}
-
-
-
-/******************************
-            TARJETAS
-******************************/
-
-.item{
-
-    background:#1b1b1b;
-
-    border-radius:10px;
-
-    overflow:hidden;
-
-    transition:.25s;
-
-    cursor:pointer;
-
-}
-
-.item:hover{
-
-    transform:scale(1.02);
-
-}
-
-.item img{
-
-    width:100%;
-
-    display:block;
-
-}
-
-.item video{
-
-    width:100%;
-
-    display:block;
-
-}
-
-.nombre{
-
-    padding:12px;
-
-    font-size:13px;
-
-    color:#ccc;
-
-    text-align:center;
-
-    word-break:break-word;
-
-}
-
-
-
-/******************************
-            MODAL
-******************************/
-
-#modal{
-
-    position:fixed;
-
-    inset:0;
-
-    background:rgba(0,0,0,.95);
-
-    display:none;
-
-    align-items:center;
-
-    justify-content:center;
-
-    z-index:999;
-
-}
-
-#modal img{
-
-    max-width:96%;
-
-    max-height:94%;
-
-    border-radius:10px;
-
-}
-
-#modal video{
-
-    max-width:96%;
-
-    max-height:94%;
-
-}
-
-#cerrar{
-
-    position:absolute;
-
-    top:15px;
-
-    right:25px;
-
-    color:white;
-
-    font-size:42px;
-
-    cursor:pointer;
-
-}
-
-
-
-/******************************
-            LOADER
-******************************/
-
-#loader{
-
-    text-align:center;
-
-    padding:40px;
-
-    color:#999;
-
-    font-size:20px;
-
-}
-
-
-
-/******************************
-            FOOTER
-******************************/
-
-footer{
-
-    text-align:center;
-
-    padding:35px;
-
-    color:#777;
-
-    font-size:13px;
-
-}
-
-
-
-/******************************
-            MÓVIL
-******************************/
-
-@media(max-width:700px){
-
-header h1{
-
-    font-size:22px;
-
-}
-
-#galeria{
-
-grid-template-columns:
-repeat(auto-fill,minmax(170px,1fr));
-
-gap:10px;
-
-padding:10px;
-
-}
-
-}
+    footer { text-align: center; padding: 15px; color: #666; margin-top: 25px; }
+
+
+  .album-menu-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: #222;
+    color: #fff;
+    padding: 14px 18px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 9999;
+  }
+
+  .album-menu-panel {
+    position: fixed;
+    bottom: 80px;
+    right: 25px;
+    background: white;
+    width: 260px;
+    max-height: 60vh;
+    overflow-y: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    display: none;
+    padding: 10px;
+    z-index: 9999;
+  }
+
+  .album-menu-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+    text-align: center;
+  }
+
+  .album-link {
+    display: block;
+    padding: 10px;
+    margin: 4px 0;
+    background: #f4f4f4;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+  }
+
+  .album-link:hover {
+    background: #ddd;
+  }
+
+  /* Contenedor dinámico para carpetas */
+  #albumViewer {
+    margin: 30px auto;
+    max-width: 1300px;
+    padding: 10px;
+  }
+
+  #albumViewer h2 {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  #albumContent {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+  }
+
+  #albumContent img, #albumContent video {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  #albumContent img:hover,
+  #albumContent video:hover {
+    transform: scale(1.05);
+  }
 
 </style>
-
 </head>
 
 <body>
 
 <header>
-
-<h1>📷 Álbum Familiar</h1>
-
-<p>Fotografías y Videos</p>
-
-<input
-id="buscar"
-type="text"
-placeholder="Buscar fotografía o video...">
-
-<div id="info">
-
-Cargando contenido...
-
-</div>
+    <h2> 📸 Álbum Familiar — Miguel</h2>
+    <div class="video-container">
+       <video class="video-header" autoplay muted loop playsinline>
+       <source src="VideosDestacados/petal_20251205_034757.mp4">  </video>
+        
+    </div>
+    
+</header>
+        </div>
+    </div>
 
 </header>
 
-
-
-<div id="loader">
-
-Consultando repositorio de GitHub...
+    
+<div class="intro">
+        
 
 </div>
+    
+<div class="intro">    
+    <h1>❤️ Dedicado a</h1>
+<p>
+    Miguel Angel Ruiz Tlalpan</p>
+</p>
+    
 
+     
+    <!-- FOTOS -->
+    <div class="gallery" id="gallery"></div>
 
-
-<div id="galeria"></div>
-
-
-
-<div id="modal">
-
-<span id="cerrar">&times;</span>
-
-<img id="imgGrande">
-
-<video
-id="videoGrande"
-controls></video>
-
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+    <span onclick="closeLightbox()">&times;</span>
+    <div class="lightbox-content" id="lightbox-content"></div>
+</div>
+<!-- todos los videos-->
+<div class="lightbox" id="lightbox">
+    <span onclick="closeLightbox()">&times;</span>
+    <div class="lightbox-content2" id="lightbox-content2"></div>
+</div>
+ <!-- VIDEOS -->
+<div class="videos-section">
+<h2>Videos 🎥</h2>
+<div class="video-grid" id="video-grid"></div>
 </div>
 
+<script>async function fetchFolders(path) {
+  const url = `https://api.github.com/repos/miguelangelruizfull-ai/album_MiguelAngelRuiz/contents/${path}`;
+  const res = await fetch(url);
+  if (!res.ok) return [];
+  const data = await res.json();
+  return data.filter(item => item.type === "dir");
+}
+
+async function loadAlbumMenu() {
+  const albumList = document.getElementById("albumList");
+  albumList.innerHTML = "<p>Cargando...</p>";
+
+  const fotoFolders = await fetchFolders("imagenes");
+  const videoFolders = await fetchFolders("VideosDestacados");
+
+  let html = `<strong>📷 Fotos</strong>`;
+  fotoFolders.forEach(f => {
+    html += `<div class="album-link" onclick="openAlbum('${f.path}')">${f.name}</div>`;
+  });
+
+  html += `<strong>🎥 Videos</strong>`;
+  videoFolders.forEach(v => {
+    html += `<div class="album-link" onclick="openAlbum('${v.path}')">${v.name}</div>`;
+  });
+
+  albumList.innerHTML = html;
+}
+
+async function openAlbum(path) {
+  const viewer = document.getElementById("albumViewer");
+  const contentBox = `
+    <h2>📁 ${path}</h2>
+    <div id="albumContent"></div>
+  `;
+  viewer.innerHTML = contentBox;
+
+  const res = await fetch(`https://api.github.com/repos/miguelangelruizfull-ai/album_MiguelAngelRuiz/contents/${path}`);
+  if (!res.ok) return;
+
+  const files = await res.json();
+  const content = document.getElementById("albumContent");
+
+  let html = "";
+
+  files.forEach(f => {
+    if (/\.(jpg|jpeg|png|gif|webp)$/i.test(f.name)) {
+      html += `<img src="${f.download_url}" onclick="openLightbox('img','${f.download_url}')">`;
+    }
+    if (/\.(mp4|webm|mov)$/i.test(f.name)) {
+      html += `<video src="${f.download_url}" muted loop onclick="openLightbox('video','${f.download_url}')"></videos>`;
+    }
+  });
+
+  content.innerHTML = html;
+
+  // Cierra el menú al elegir una carpeta
+  document.getElementById("albumMenu").style.display = "none";
+}
+
+function toggleAlbumMenu() {
+  const menu = document.getElementById("albumMenu");
+  menu.style.display = menu.style.display === "block" ? "none" : "block";
+}
+
+// Inicializar menús al cargar
+loadAlbumMenu();
+
+    </script>
 
 
+
+<script>
+
+    
+    // VIDEOS
+async function loadVideos() {
+    const apiURL = "https://api.github.com/repos/KATO250712/AlbumFamiliar/contents/VideosDestacados";
+    const res = await fetch(apiURL);
+    if (!res.ok) return;
+    const files = await res.json();
+
+    const videoGrid = document.getElementById("video-grid");
+    files.forEach(file => {
+        if (file.name.match(/\.(mp4|webm|mov)$/i)) {
+            const video = document.createElement("video");
+            video.src = file.download_url;
+            video.autoplay = true;
+            video.muted = true;
+            video.loop = true;
+            video.onclick = () => openLightbox("video", file.download_url);
+            videoGrid.appendChild(video);
+        }
+    });
+}
+
+// IMÁGENES
+async function loadImages() {
+    const apiURL = "https://api.github.com/repos/api.github.com/repos/miguelangelruizfull-ai/album_MiguelAngelRuiz/contents/imagenes";
+    const res = await fetch(apiURL);
+    if (!res.ok) return;
+    const files = await res.json();
+
+    const gallery = document.getElementById("gallery");
+
+    // Ordenarlas por fecha dentro del nombre del archivo
+    files.sort((a, b) => {
+        const da = a.name.match(/\d+/g);
+        const db = b.name.match(/\d+/g);
+        return (da ? da.join("") : 0) - (db ? db.join("") : 0);
+    });
+
+    files.forEach(file => {
+        if (file.name.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
+            const item = document.createElement("div");
+            item.classList.add("gallery-item");
+            item.innerHTML = `<img src="${file.download_url}">`;
+            item.onclick = () => openLightbox("img", file.download_url);
+            gallery.appendChild(item);
+        }
+    });
+}
+
+// LIGHTBOX
+function openLightbox(type, src) {
+    const content = document.getElementById("lightbox-content");
+    content.innerHTML = type === "img"
+        ? `<img src="${src}">`
+        : `<video src="${src}" controls autoplay></video>`;
+    document.getElementById("lightbox").style.display = "flex";
+}
+
+function closeLightbox() {
+    document.getElementById("lightbox").style.display = "none";
+    document.getElementById("lightbox-content").innerHTML = "";
+}
+
+loadVideos();
+loadImages();
+
+    
+// LIGHTBOX
+function openLightbox(type, src) {
+    const content = document.getElementById("lightbox-content");
+    content.innerHTML = type === "img"
+        ? `<img src="${src}">`
+        : `<video src="${src}" controls autoplay></video>`;
+    document.getElementById("lightbox").style.display = "flex";
+}
+
+function closeLightbox() {
+    document.getElementById("lightbox").style.display = "none";
+    document.getElementById("lightbox-content").innerHTML = "";
+}
+
+</script>
+ <div id="albumViewer"></div>
 <footer>
 
-Álbum Familiar • GitHub Pages
+     <p> "Todo lo que te viniere a la mano para hacer, hazlo según tus fuerzas." — Eclesiastés 9:10</p>
+    <p>Conservar recuerdos familiares de la manera más segura y accesible.</p>p>
+    <p>By Miguel Miguel Angel Ruiz Ramirez</p>
 
 </footer>
 
-<script>
-
-/***************************************************
-
-CONFIGURACIÓN
-
-***************************************************/
-
-const OWNER="miguelangelruizfull-ai";
-
-const REPO="album_MiguelAngelRuiz";
-
-const CARPETA="2026/FOTOS";
-
-const API=
-`https://api.github.com/repos/${OWNER}/${REPO}/contents/${CARPETA}`;
-
-
-/***************************************************
-
-LA PARTE 2 CONTINÚA DESDE AQUÍ
-
-***************************************************/
-
-<script>
-
-/***************************************************
-
-VARIABLES
-
-***************************************************/
-
-let archivos=[];
-
-
-/***************************************************
-
-OBTENER ARCHIVOS DESDE GITHUB
-
-***************************************************/
-
-async function cargarGaleria(){
-
-try{
-
-
-const respuesta=await fetch(API);
-
-
-const datos=await respuesta.json();
-
-
-
-archivos=datos.filter(archivo=>{
-
-
-const nombre=archivo.name.toLowerCase();
-
-
-return (
-
-nombre.endsWith(".jpg") ||
-nombre.endsWith(".jpeg") ||
-nombre.endsWith(".png") ||
-nombre.endsWith(".webp") ||
-nombre.endsWith(".gif") ||
-nombre.endsWith(".mp4") ||
-nombre.endsWith(".mov") ||
-nombre.endsWith(".webm")
-
-);
-
-
-});
-
-
-
-/*
-
-Orden cronológico usando el nombre
-
-Ejemplo:
-
-IMG_20260620_100220.jpg
-
-IMG_20260621_083000.jpg
-
-*/
-
-archivos.sort((a,b)=>
-
-a.name.localeCompare(
-b.name,
-undefined,
-{
-numeric:true,
-sensitivity:"base"
-}
-
-)
-
-);
-
-
-
-document.getElementById("loader").style.display="none";
-
-
-document.getElementById("info").innerHTML=
-
-`${archivos.length} archivos encontrados`;
-
-
-
-mostrarArchivos(archivos);
-
-
-
-}
-catch(error){
-
-
-document.getElementById("loader").innerHTML=
-
-"Error al consultar GitHub";
-
-
-console.error(error);
-
-
-}
-
-
-}
-
-
-
-/***************************************************
-
-MOSTRAR GALERÍA
-
-***************************************************/
-
-function mostrarArchivos(lista){
-
-
-
-const galeria=
-document.getElementById("galeria");
-
-
-galeria.innerHTML="";
-
-
-
-lista.forEach(archivo=>{
-
-
-const tarjeta=document.createElement("div");
-
-
-tarjeta.className="item";
-
-
-
-const nombre=
-archivo.name.toLowerCase();
-
-
-
-const titulo=document.createElement("div");
-
-
-titulo.className="nombre";
-
-
-titulo.textContent=archivo.name;
-
-
-
-/*
-
-IMÁGENES
-
-*/
-
-if(
-
-nombre.endsWith(".jpg") ||
-nombre.endsWith(".jpeg") ||
-nombre.endsWith(".png") ||
-nombre.endsWith(".webp") ||
-nombre.endsWith(".gif")
-
-){
-
-
-const img=document.createElement("img");
-
-
-img.src=archivo.download_url;
-
-
-img.loading="lazy";
-
-
-img.alt=archivo.name;
-
-
-img.onclick=()=>abrirImagen(
-archivo.download_url
-);
-
-
-
-tarjeta.appendChild(img);
-
-
-
-}
-
-
-
-/*
-
-VIDEOS
-
-*/
-
-else if(
-
-nombre.endsWith(".mp4") ||
-nombre.endsWith(".mov") ||
-nombre.endsWith(".webm")
-
-){
-
-
-
-const video=document.createElement("video");
-
-
-video.src=archivo.download_url;
-
-
-video.controls=true;
-
-
-video.preload="metadata";
-
-
-tarjeta.appendChild(video);
-
-
-
-}
-
-
-
-tarjeta.appendChild(titulo);
-
-
-
-galeria.appendChild(tarjeta);
-
-
-
-});
-
-
-
-}
-
-
-
-/***************************************************
-
-BUSCADOR
-
-***************************************************/
-
-document
-.getElementById("buscar")
-.addEventListener(
-"input",
-function(){
-
-
-const texto=
-this.value.toLowerCase();
-
-
-
-const filtrados=
-archivos.filter(
-archivo=>
-
-archivo.name
-.toLowerCase()
-.includes(texto)
-
-);
-
-
-
-mostrarArchivos(filtrados);
-
-
-
-}
-
-);
-
-
-
-
-/***************************************************
-
-INICIAR CARGA
-
-***************************************************/
-
-cargarGaleria();
-
-
-/***************************************************
-
-LA PARTE 3 CONTINÚA CON:
-
-- Visor pantalla completa
-- Cerrar modal
-- Control de videos
-- Ajustes finales
-
-***************************************************/
-
-
-</script>
-
-<script>
-
-/***************************************************
-
-VISOR DE IMÁGENES Y VIDEOS
-
-***************************************************/
-
-
-const modal =
-document.getElementById("modal");
-
-
-const imgGrande =
-document.getElementById("imgGrande");
-
-
-const videoGrande =
-document.getElementById("videoGrande");
-
-
-const cerrar =
-document.getElementById("cerrar");
-
-
-
-/*
-
-ABRIR IMAGEN
-
-*/
-
-function abrirImagen(url){
-
-
-videoGrande.style.display="none";
-
-
-videoGrande.pause();
-
-
-imgGrande.style.display="block";
-
-
-imgGrande.src=url;
-
-
-modal.style.display="flex";
-
-
-}
-
-
-
-/*
-
-ABRIR VIDEO
-
-*/
-
-function abrirVideo(url){
-
-
-imgGrande.style.display="none";
-
-
-videoGrande.style.display="block";
-
-
-videoGrande.src=url;
-
-
-modal.style.display="flex";
-
-
-}
-
-
-
-
-/*
-
-CERRAR VISOR
-
-*/
-
-cerrar.onclick=function(){
-
-
-modal.style.display="none";
-
-
-imgGrande.src="";
-
-
-videoGrande.pause();
-
-
-videoGrande.src="";
-
-
-};
-
-
-
-/*
-
-CERRAR AL HACER CLICK FUERA
-
-*/
-
-modal.onclick=function(e){
-
-
-if(e.target===modal){
-
-
-modal.style.display="none";
-
-
-videoGrande.pause();
-
-
-}
-
-};
-
-
-
-/***************************************************
-
-ACTUALIZAR VIDEOS PARA ABRIR EN GRANDE
-
-***************************************************/
-
-
-document
-.addEventListener(
-"click",
-function(e){
-
-
-if(e.target.tagName==="VIDEO"){
-
-
-abrirVideo(e.target.src);
-
-
-}
-
-
-});
-
-
-
-</script>
-
-
 </body>
-
 </html>
