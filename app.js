@@ -5,6 +5,7 @@ const ALBUM = {
 
 const IMAGE_RE = /\.(jpe?g|png|webp|gif)$/i;
 const VIDEO_RE = /\.(mp4|webm|mov)$/i;
+const NON_PUBLIC_MEDIA_SEGMENTS = new Set(['_originales', '_preseleccion']);
 const monthFormatter = new Intl.DateTimeFormat('es-MX', { month: 'long', year: 'numeric' });
 const dateFormatter = new Intl.DateTimeFormat('es-MX', { day: 'numeric', month: 'long', year: 'numeric' });
 
@@ -26,11 +27,17 @@ function mediaType(path) {
   return null;
 }
 
+function isPublishableMediaPath(path) {
+  const segments = path.toLowerCase().split('/');
+  return !segments.some(segment => NON_PUBLIC_MEDIA_SEGMENTS.has(segment));
+}
+
 function sourcePriority(item) {
   const p = item.path.toLowerCase();
   if (item.type === 'video' && p.startsWith('videosdestacados/')) return 0;
   if (p.startsWith('imagenes/')) return 1;
   if (p.startsWith('2026/fotos/')) return 2;
+  if (p.startsWith('2026/videos/')) return 2;
   if (!p.includes('/')) return 3;
   return 4;
 }
@@ -46,7 +53,7 @@ function parseDate(path) {
 
 function normalizeTree(tree) {
   const candidates = tree
-    .filter(item => item.type === 'blob' && mediaType(item.path))
+    .filter(item => item.type === 'blob' && mediaType(item.path) && isPublishableMediaPath(item.path))
     .map(item => ({
       path: item.path,
       sha: item.sha,
