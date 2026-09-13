@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 1.0.1 — Flujo de incorporación segura · 2026-09-13
+
+### Nuevo flujo de medios
+- Se definió el proceso `ORIGINAL PRIVADO → PRESELECCIÓN → APROBACIÓN → PUBLICACIÓN`.
+- Se añadió `FLUJO_MEDIA.md` con reglas para conservar originales y revisar material antes de publicarlo.
+- Se preparó `2026/VIDEOS/` como ruta canónica para videos aprobados.
+
+### Protección contra publicación accidental
+- `app.js` excluye de la galería cualquier medio ubicado en rutas que contengan `_ORIGINALES` o `_PRESELECCION`.
+- Estas rutas funcionan únicamente como protección de render; no convierten los archivos en privados dentro de un repositorio público.
+- Se documentó que los originales deben conservarse preferentemente en una ubicación privada y que el repositorio público debe recibir solo material aprobado.
+
 ## 1.0.0 — Primera edición · 2026-09-06
 
 Primer lanzamiento formal de `album_MiguelAngelRuiz`.
