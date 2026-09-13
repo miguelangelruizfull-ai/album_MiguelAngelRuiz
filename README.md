@@ -24,6 +24,21 @@ El primer lanzamiento reconstruye la interfaz anterior y corrige varios problema
 - reducción de información identificable en la portada pública;
 - `noindex` para desalentar indexación del álbum personal en buscadores.
 
+## Flujo para nuevo material
+
+El álbum usa un flujo de incorporación antes de publicar fotos o videos nuevos:
+
+1. **ORIGINALES** — conservar los archivos recibidos sin alterar, renombrar ni reemplazar.
+2. **PRESELECCIÓN** — revisar calidad, duplicados, privacidad, contenido y valor del recuerdo.
+3. **APROBACIÓN** — únicamente el material aprobado pasa al álbum público.
+4. **PUBLICACIÓN** — fotos aprobadas van a `AAAA/FOTOS/` y videos aprobados a `AAAA/VIDEOS/`.
+
+Las carpetas o rutas que contengan los segmentos `_ORIGINALES` o `_PRESELECCION` quedan excluidas del render de la galería pública por `app.js`.
+
+**Importante:** este repositorio es público. Excluir un archivo de la galería no lo vuelve privado si el archivo se sube al repositorio. Por ello, la conservación principal de originales debe hacerse en una ubicación privada (por ejemplo, Drive o un repositorio privado) y el repositorio público debe recibir únicamente el material aprobado.
+
+La especificación completa del flujo está en `FLUJO_MEDIA.md`.
+
 ## Duplicados
 
 El repositorio histórico contiene algunos mismos archivos almacenados en más de una ruta, por ejemplo entre:
@@ -40,7 +55,8 @@ Esta decisión evita borrar recuerdos por error. La limpieza física del reposit
 ## Estructura técnica
 
 - `index.html` — interfaz y diseño.
-- `app.js` — carga del árbol GitHub, orden cronológico, filtros, deduplicación y lightbox.
+- `app.js` — carga del árbol GitHub, orden cronológico, filtros, deduplicación, exclusión de staging y lightbox.
+- `FLUJO_MEDIA.md` — proceso seguro de originales → preselección → aprobación → publicación.
 - multimedia existente — permanece en sus rutas históricas durante esta fase.
 
 ## Privacidad
